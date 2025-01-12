@@ -7,11 +7,10 @@ const port = process.env.PORT || 5004
 
 // middleware
 app.use(cors())
-app.use(express.json())
+const path = require("path");
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send("Blog server is running!")
-});
+
 
 app.get('/blogs', (req, res) => {
   res.send(blogs)
@@ -27,3 +26,10 @@ app.get('/blogs/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/frontend/dist/index"));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
