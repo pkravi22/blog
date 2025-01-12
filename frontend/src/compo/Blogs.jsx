@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MdNavigateNext } from "react-icons/md";
-import { GrFormPrevious } from "react-icons/gr";
 import BlogCard from "./BlogCard";
-import Pagination from "./Pagination";
 import Populer from "./Populer";
 import LatestBlogs from "./LatestBlogs";
 const Blogs = () => {
@@ -57,16 +54,15 @@ const Blogs = () => {
           ))}
         </div>
         <div className="flex  flex-col lg:flex-row gap-4 ">
-            <div className=" w-full lg:w-3/4">
+          <div className=" w-full lg:w-3/4">
             <BlogCard selected={selectedCategory} blogs={blogs} />
-            </div>
-          
+          </div>
+
           <div className="flex flex-col w-full md:w-1/4 mt-16">
             <Populer blogs={blogs} />
-            <LatestBlogs blogs={blogs}/>
+            <LatestBlogs blogs={blogs} />
           </div>
         </div>
-        
       </div>
     </div>
   );
