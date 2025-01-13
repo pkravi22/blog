@@ -13,7 +13,7 @@ const [open,setOpen]=useState(false);
           <img src={react} alt="" srcset="" />
         </div>
         <nav className={` ${open ?"flex flex-col":"hidden"}  sm:flex`}>
-          <ul className={`   flex gap-8  `}>
+          <ul className={`  ${open ?" flex-col":""} flex gap-8  `}>
             <li className="nav-item hover:text-orange-500 active">
               <Link to="/" className="nav-link ">
                 Home
