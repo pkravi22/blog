@@ -42,8 +42,8 @@ const [open,setOpen]=useState(false);
           </ul>
         </nav>
         <nav className="sm:hidden">
-          <div onClick={handleMenu}>
-            {open ?"close":"Menu"}
+          <div onClick={handleMenu} className={`${open?"text-red-400":""}`}>
+            {open ?"Close":"Menu"}
          
           </div>
         </nav>
