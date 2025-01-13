@@ -4,7 +4,7 @@ import React from 'react'
 const Signup = () => {
 
   return (
-    <div className=''>
+    <div className='mt-0'>
     <SignUp/>
     </div>
   )
