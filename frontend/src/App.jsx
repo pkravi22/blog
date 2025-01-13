@@ -7,6 +7,7 @@ import Layout from "./compo/Layout";
 import Home from "./compo/Home";
 import About from "./compo/About";
 import Footer from "./compo/Footer";
+import Contact from "./compo/Contact";
 import SpeciFicBlog from "./compo/SpeciFicBlog";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -21,7 +22,7 @@ function App() {
           <Route  element={<Layout />} >
             <Route path="/" index element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
-            <Route path="/contact" element={<div>Contact</div>}/>
+            <Route path="/contact" element={<Contact/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/blog/:id" element={<SpeciFicBlog/>}/>

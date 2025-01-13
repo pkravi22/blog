@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import react from "../assets/react.svg";
+import logo from "../assets/logo.jpeg";
 import { Link } from "react-router-dom";
 const Header = () => {
 const [open,setOpen]=useState(false);
@@ -8,11 +8,11 @@ const [open,setOpen]=useState(false);
   }
   return (
     <>
-      <header className="bg-black text-white  shadow-white shadow-sm flex justify-between fixed w-full p-4  z-10 ">
+      <header className="bg-orange-50 text-black  shadow-white shadow-sm flex justify-between fixed w-full p-2  z-10 ">
         <div>
-          <img src={react} alt="" srcset="" />
+          <img src={logo} alt="" srcset="" className="w-[150px]" />
         </div>
-        <nav className={` ${open ?"flex flex-col":"hidden"}  sm:flex`}>
+        <nav className={` ${open ?"flex flex-col":"hidden"}  items-center justify-center sm:flex`}>
           <ul className={`  ${open ?" flex-col":""} flex gap-8  `}>
             <li className="nav-item hover:text-orange-500 active">
               <Link to="/" className="nav-link ">
