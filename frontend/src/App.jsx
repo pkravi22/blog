@@ -11,6 +11,7 @@ import Contact from "./compo/Contact";
 import SpeciFicBlog from "./compo/SpeciFicBlog";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Job from "./pages/Job";
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/blog/:id" element={<SpeciFicBlog/>}/>
+            <Route path="/jobs" element={<Job/>}/>
           </Route>
         </Routes>
         <Footer/>

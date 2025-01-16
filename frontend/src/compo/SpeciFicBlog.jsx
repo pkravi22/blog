@@ -8,7 +8,7 @@ const SpeciFicBlog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await fetch(`http://localhost:5004/blogs/${id}`);
+        const response = await fetch(`https://blog-ung5.onrender.com/blogs/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch blog");
         }

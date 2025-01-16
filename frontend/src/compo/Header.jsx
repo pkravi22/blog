@@ -19,6 +19,16 @@ const [open,setOpen]=useState(false);
                 Home
               </Link>
             </li>
+            <li className="nav-item hover:text-orange-500 active">
+              <Link to="/" className="nav-link ">
+                Blogs
+              </Link>
+            </li>
+            <li className="nav-item hover:text-orange-500 active">
+              <Link to="/jobs" className="nav-link ">
+                jobs
+              </Link>
+            </li>
             <li className="nav-item  hover:text-orange-500 active">
               <Link to="/about" className="nav-link">
                 about
@@ -42,7 +52,7 @@ const [open,setOpen]=useState(false);
           </ul>
         </nav>
         <nav className="sm:hidden">
-          <div onClick={handleMenu} className={`${open?"text-red-400":""}`}>
+          <div onClick={handleMenu} className={`${open?"text-red-400 ":""} text-3xl my-1`}>
             {open ?"Close":"Menu"}
          
           </div>

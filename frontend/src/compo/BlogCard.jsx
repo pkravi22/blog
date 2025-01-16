@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Pagination from "./Pagination";
 import { IoMdPerson } from "react-icons/io";
 import { Link } from "react-router-dom";
+
+
 const BlogCard = ({ selected, blogs }) => {
   const blogsToRender =
     selected !== null

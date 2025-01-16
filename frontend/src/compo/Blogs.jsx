@@ -13,7 +13,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`http://localhost:5004/blogs`);
+        const response = await fetch(`https://blog-ung5.onrender.com/blogs`);
         const blogs = await response.json();
         console.log("Fetched Blogs:", blogs);
         setBlogs(blogs);
