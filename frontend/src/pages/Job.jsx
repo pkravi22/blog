@@ -2,33 +2,119 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Job = () => {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState([]); // All jobs
+  const [visibleJobs, setVisibleJobs] = useState([]); // Jobs visible on the screen
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const ITEMS_PER_PAGE = 20;
+
+  // Array of random company logos (replace with actual logo URLs)
+  const companyLogos = [
+    "https://upload.wikimedia.org/wikipedia/commons/4/4e/Google_2015_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Logo_IBM.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/17/Logo_Twitter.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/5/5e/Apple_logo_black.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/8/83/Spotify_logo_with_text.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/c/cd/Amazon_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Facebook_logo_2023.png",
+    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Microsoft_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/0/02/LinkedIn_Logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/Adobe_logo.svg",
+  ];
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const { data } = await axios.get('https://blog-ung5.onrender.com/jobs'); 
+        setLoading(true);
+        const { data } = await axios.get("http://localhost:5004/jobs"); // Update with your API endpoint
         setJobs(data);
+        console.log(data+"hello")
+        setVisibleJobs(data.slice(0, 30)); // Load the first set of jobs
+        setLoading(false);
+        console.log(jobs)
       } catch (error) {
-        console.error('Error fetching job data:', error);
+        console.error("Error fetching job data:", error);
+        setError(error.message);
+        setLoading(false);
       }
     };
 
     fetchJobs();
   }, []);
 
+  const loadMoreJobs = () => {
+    const nextJobs = jobs.slice(
+      visibleJobs.length,
+      visibleJobs.length + ITEMS_PER_PAGE
+    );
+    setVisibleJobs([...visibleJobs, ...nextJobs]);
+  };
+
+  // Function to get a random logo from the companyLogos array
+  const getRandomLogo = () => {
+    return companyLogos[Math.floor(Math.random() * companyLogos.length)];
+  };
+
   return (
-    <div>
-      <h1>Government Jobs</h1>
-      <ul>
-        {jobs.map((job, index) => (
-          <li key={index}>
-            <a href={job.link} target="_blank" rel="noopener noreferrer">
-              {job.title} - {job.date}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-gray-100 py-8 px-4">
+      <h1 className="text-4xl font-bold text-center mb-8 mt-8">
+        Government Jobs Section
+      </h1>
+
+      {error ? (
+        <p className="text-red-500 text-center">
+          Error fetching job data: {error}
+        </p>
+      ) : loading ? (
+        <p className="text-center text-gray-500">Loading jobs...</p>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {visibleJobs.map((job, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                {/* Use a random company logo as the image */}
+                <img
+                  src={getRandomLogo()}
+                  alt="Job Company"
+                  className="w-full h-40 object-cover"
+                />
+                <div className="p-4">
+                  <h2 className="font-bold text-base ">{job.title}</h2>
+                  <p className="text-sm text-gray-500">
+                    Posted Date: {job.date || "N/A"}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Last Date:{" "}
+                    {`2025-02-${Math.floor(Math.random() * 20) + 10}`}
+                  </p>
+                  <a
+                    href={job.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline mt-2 block"
+                  >
+                    View Details
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {visibleJobs.length < jobs.length && (
+            <div className="text-center mt-6">
+              <button
+                onClick={loadMoreJobs}
+                className="px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
+              >
+                Load More
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

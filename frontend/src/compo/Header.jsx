@@ -30,6 +30,12 @@ const [open,setOpen]=useState(false);
               </Link>
             </li>
             <li className="nav-item  hover:text-orange-500 active">
+              <Link to="/bytes" className="nav-link">
+                Bytes
+              </Link>
+            </li>
+
+            <li className="nav-item  hover:text-orange-500 active">
               <Link to="/about" className="nav-link">
                 about
               </Link>
@@ -44,11 +50,7 @@ const [open,setOpen]=useState(false);
                 Sign up
               </Link>
             </li>
-            <li className="nav-item  hover:text-orange-500 active">
-              <Link to="/login" className="nav-link">
-                Log In
-              </Link>
-            </li>
+            
           </ul>
         </nav>
         <nav className="sm:hidden">

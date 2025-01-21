@@ -9,7 +9,7 @@ import {
 const Login = () => {
   return (
     <>
-    <div>Login page</div>
+    <div className="h-screen">Login page</div>
       
     </>
   );

@@ -8,6 +8,7 @@ const scrapeJobs = async () => {
     const { data } = await axios.get(url);
     const $ = cheerio.load(data);
     const jobs = [];
+    console.log(data);
 
     $('.post').each((index, element) => {
       const title = $(element).find('.post-title').text().trim();

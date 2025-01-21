@@ -12,6 +12,7 @@ import SpeciFicBlog from "./compo/SpeciFicBlog";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Job from "./pages/Job";
+import Bytes from "./pages/Bytes";
 
 
 
@@ -28,6 +29,8 @@ function App() {
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/blog/:id" element={<SpeciFicBlog/>}/>
             <Route path="/jobs" element={<Job/>}/>
+            <Route path="/bytes" element={<Bytes/>}/>
+
           </Route>
         </Routes>
         <Footer/>
