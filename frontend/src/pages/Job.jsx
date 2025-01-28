@@ -15,7 +15,7 @@ const Job = () => {
     const fetchJobs = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("http://localhost:5000/jobs"); // Update with your API endpoint
+        const { data } = await axios.get("https://blog-ung5.onrender.com/jobs"); // Update with your API endpoint
         setJobs(data);
         console.log(data+"hello")
         setVisibleJobs(data.slice(0, 30)); // Load the first set of jobs
