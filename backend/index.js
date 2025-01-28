@@ -10,8 +10,8 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const Byte = require("./models/Bytes");
 const User = require("./models/User");
-const authRouter=require('./Routes/AuthRouter');
-const productRouter=require('./Routes/ProductRouter');
+const authRouter=require('./routes/AuthRouter');
+const productRouter=require('./routes/ProductRouter');
 // Assuming you have a separate file for DB connection
 const connectDB = require("./db");
 
