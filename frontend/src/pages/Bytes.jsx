@@ -22,7 +22,7 @@ const Bytes = () => {
     formData.append("file", file); // Add file to FormData
 
     try {
-      const response = await axios.post("http://localhost:5000/uploads", formData, {
+      const response = await axios.post("https://blog-ung5.onrender.com/uploads", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
