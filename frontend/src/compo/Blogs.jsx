@@ -72,7 +72,7 @@ const Blogs = () => {
             <div className="w-full lg:w-3/4">
               <BlogCard selected={selectedCategory} blogs={blogs} />
             </div>
-            <div className="flex flex-col w-full md:w-1/4 mt-16">
+            <div className="flex lg:flex-col w-full lg:w-1/4 gap-16 px-8 mt-16">
               <Populer blogs={blogs} />
               <LatestBlogs blogs={blogs} />
             </div>

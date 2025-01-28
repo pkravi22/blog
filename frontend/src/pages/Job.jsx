@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import jobpic from "../assets/job.jpeg";
 const Job = () => {
   const [jobs, setJobs] = useState([]); // All jobs
   const [visibleJobs, setVisibleJobs] = useState([]); // Jobs visible on the screen
@@ -9,24 +9,13 @@ const Job = () => {
   const ITEMS_PER_PAGE = 20;
 
   // Array of random company logos (replace with actual logo URLs)
-  const companyLogos = [
-    "https://upload.wikimedia.org/wikipedia/commons/4/4e/Google_2015_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Logo_IBM.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/1/17/Logo_Twitter.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/5/5e/Apple_logo_black.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/8/83/Spotify_logo_with_text.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/c/cd/Amazon_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Facebook_logo_2023.png",
-    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Microsoft_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/02/LinkedIn_Logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/4/42/Adobe_logo.svg",
-  ];
+  
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("http://localhost:5004/jobs"); // Update with your API endpoint
+        const { data } = await axios.get("http://localhost:5000/jobs"); // Update with your API endpoint
         setJobs(data);
         console.log(data+"hello")
         setVisibleJobs(data.slice(0, 30)); // Load the first set of jobs
@@ -69,7 +58,7 @@ const Job = () => {
         <p className="text-center text-gray-500">Loading jobs...</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {visibleJobs.map((job, index) => (
               <div
                 key={index}
@@ -77,8 +66,8 @@ const Job = () => {
               >
                 {/* Use a random company logo as the image */}
                 <img
-                  src={getRandomLogo()}
-                  alt="Job Company"
+                  src={jobpic}
+                 
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-4">

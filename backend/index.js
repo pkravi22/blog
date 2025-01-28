@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require('dotenv').config()
 const cors = require("cors");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -9,6 +10,8 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const Byte = require("./models/Bytes");
 const User = require("./models/User");
+const authRouter=require('./Routes/AuthRouter');
+const productRouter=require('./Routes/ProductRouter');
 // Assuming you have a separate file for DB connection
 const connectDB = require("./db");
 
@@ -22,59 +25,13 @@ app.use("/uploads", express.static("uploads")); // Serve static files from the '
 
 // Bytes Schema and Model
 //user login and signup
-app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
+app.use("/users", async(req,res) => {
+  const users=await User.find();
+})
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "All fields are required." });
-    }
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid credentials." });
-    }
-
-    const token = jwt.sign({ id: user._id, email: user.email }, "your_jwt_secret", { expiresIn: "1h" });
-
-    res.status(200).json({ message: "Login successful.", token });
-  } catch (error) {
-    console.error("Error logging in:", error);
-    res.status(500).json({ message: "Internal server error." });
-  }
-});
-
-app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "All fields are required." });
-    }
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid credentials." });
-    }
-
-    const token = jwt.sign({ id: user._id, email: user.email }, "your_jwt_secret", { expiresIn: "1h" });
-
-    res.status(200).json({ message: "Login successful.", token });
-  } catch (error) {
-    console.error("Error logging in:", error);
-    res.status(500).json({ message: "Internal server error." });
-  }
-});
+//
+app.use('/auth',authRouter);
+app.use('/products',productRouter);
 
 
 // Blog Schema and Model
@@ -113,9 +70,9 @@ const upload = multer({ storage });
 app.post("/uploads", upload.single("file"), async (req, res) => {
   try {
     const { originalname, path: filePath, mimetype } = req.file;
-console.log(req.file)
-    // Save file details in the database
-    const normalizedPath = path.normalize(filePath);
+
+    console.log("Uploaded file details:", { originalname, filePath, mimetype });
+
     const newByte = new Byte({
       fileName: originalname,
       filePath,
@@ -123,12 +80,15 @@ console.log(req.file)
     });
 
     await newByte.save();
+    console.log("File details saved to database:", newByte);
+
     res.status(201).json({ message: "File uploaded successfully", newByte });
   } catch (error) {
-    console.error("Error uploading file:", error);
+    console.error("Error saving file to database:", error);
     res.status(500).json({ message: "Error uploading file", error });
   }
 });
+
 
 // Route to fetch all uploaded files
 app.get("/bytes", async (req, res) => {

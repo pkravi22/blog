@@ -8,8 +8,12 @@ const LatestBlogs = ({ blogs }) => {
       <div className="flex flex-col gap-4 text-sm ">
         {bloggs.map((latest) => {
           return (
-            <div key={latest.id} className="border-b py-2">
+            <div key={latest.id} className=" flex flex-col gap-2 border-b py-2">
+              <div className="flex items-center gap-4">
+              <img src={latest.image} alt="" className="w-20" />
               <h2>{latest.title.slice(0, 40)}..</h2>
+              </div>
+              
               <div className='bg-black text-white p-1 w-[100px]'>
               <Link  to={`/blog/${latest.id}`}>Read More</Link></div>
             </div>
