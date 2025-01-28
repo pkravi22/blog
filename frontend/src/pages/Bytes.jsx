@@ -22,7 +22,7 @@ const Bytes = () => {
     formData.append("file", file); // Add file to FormData
 
     try {
-      const response = await axios.post("http://localhost:5000/uploads", formData, {
+      const response = await axios.post("https://blog-ung5.onrender.com/uploads", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -39,7 +39,7 @@ const Bytes = () => {
   // Fetch uploaded files from the backend
   const fetchUploadedFiles = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/bytes");
+      const response = await axios.get("https://blog-ung5.onrender.com/bytes");
       setUploadedFiles(response.data); // Assuming the response contains the file list
       console.log(uploadedFiles);
     } catch (error) {
@@ -71,7 +71,7 @@ const Bytes = () => {
             {uploadedFiles.map((file, index) => (
               <li key={index} className="mb-2 list-none">
                 <img
-                  src={`http://localhost:5000/${file.filePath}`} // Use forward slashes
+                  src={`https://blog-ung5.onrender.com/${file.filePath}`} // Use forward slashes
                   alt={file.fileName}
                   className="w-full h-auto" // Adjust image size as needed
                 />
