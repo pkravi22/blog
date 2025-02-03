@@ -21,7 +21,8 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("uploads")); // Serve static files from the 'uploads' directory
+ app.use("/uploads", express.static("uploads")); 
+ // Serve static files from the 'uploads' directory
 
 // Bytes Schema and Model
 //user login and signup
@@ -69,13 +70,14 @@ const upload = multer({ storage });
 // Route to upload a file
 app.post("/uploads", upload.single("file"), async (req, res) => {
   try {
-    const { originalname, path: filePath, mimetype } = req.file;
+    const { originalname, mimetype } = req.file;
+    const filePath = `uploads/${req.file.filename}`; // Ensure correct path format
 
     console.log("Uploaded file details:", { originalname, filePath, mimetype });
 
     const newByte = new Byte({
       fileName: originalname,
-      filePath,
+      filePath: filePath, // Save relative path
       fileType: mimetype,
     });
 
@@ -94,7 +96,11 @@ app.post("/uploads", upload.single("file"), async (req, res) => {
 app.get("/bytes", async (req, res) => {
   try {
     const bytes = await Byte.find();
-    res.status(200).json(bytes);
+    const filesWithUrl = bytes.map((byte) => ({
+      ...byte._doc,
+      fileUrl: `http://localhost:5000/uploads/${path.basename(byte.filePath)}`, 
+    }));
+    res.status(200).json(filesWithUrl);
   } catch (error) {
     console.error("Error fetching bytes:", error);
     res.status(500).json({ message: "Error fetching bytes", error });

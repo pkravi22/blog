@@ -42,6 +42,7 @@ const Bytes = () => {
       const response = await axios.get("https://blog-ung5.onrender.com/bytes");
       setUploadedFiles(response.data); // Assuming the response contains the file list
       console.log(uploadedFiles);
+      console.log(uploadedFiles[9].filePath)
     } catch (error) {
       console.error("Error fetching files:", error);
     }
@@ -53,7 +54,7 @@ const Bytes = () => {
   }, []);
 
   return (
-    <div className="h-screen pt-24 flex flex-col justify-center items-center gap-4">
+    <div className="min-h-screen pt-24 flex flex-col justify-center items-center gap-4">
       <div className="flex flex-col gap-2">
         <input type="file" onChange={handleChange} />
         <button
@@ -70,11 +71,8 @@ const Bytes = () => {
           <ul className="grid grid-cols-4 gap-4">
             {uploadedFiles.map((file, index) => (
               <li key={index} className="mb-2 list-none">
-                <img
-                  src={`https://blog-ung5.onrender.com/${file.filePath}`} // Use forward slashes
-                  alt={file.fileName}
-                  className="w-full h-auto" // Adjust image size as needed
-                />
+                <img key={file._id} src={`http://localhost:5000/${file.filePath}`} alt={file.fileName} width="200px" />
+                
               </li>
             ))}
           </ul>
